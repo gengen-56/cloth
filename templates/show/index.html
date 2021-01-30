@@ -1,0 +1,118 @@
+
+{% extends 'show/base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% load custom_tags %}
+{% block content %}
+<div class="container py-5">
+    <div class="row text-center text-white mb-5">
+        <div class="col-lg-7 mx-auto">
+            <h1 class="display-4">Purchased List</h1>
+        </div>
+    </div>
+
+<form method="get" action="" name="filter_form">
+    <legend>絞り込み条件</legend>
+    <div>
+        <span>部位：</span>
+        {% for part in parts %}
+            <input type="checkbox" id="filter_kind_{{ part.pk }}" 
+                name="part" 
+                value="{{ part.pk }}"
+                {{ part.pk|checked:request.GET }}
+                >{{ part.name }}
+        {% endfor %}
+    </div>
+    <div>
+        <button id="filter">絞り込み</button>
+    </div>
+</form>
+
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- List group-->
+            {% for list in object_list %}
+            <ul class="list-group shadow">
+                <!-- list group item-->
+                <li class="list-group-item">
+                    <!-- Custom content-->
+                      <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body order-2 order-lg-1">
+                            
+                            <p>名前：{{list.cloth_name}}</p>
+                            {% if list.date_purchase %}
+                              <p>購入日：{{list.date_purchase}}</p>
+                            {% endif %}
+                            {% if list.reason %}
+                              <p>季節：{{list.reason}}</p>
+                            {% endif %}
+                            <p>部位：{{list.part.name}}</p>
+                            <img src="{{MEDIA_URL}}{{list.image}}" style="width:300px;height:auto">
+                            <p><a href="{% url 'show:delete' list.pk %}">削除</a></p>
+                            
+                        </div> <!-- End -->
+                      </div>
+                </li> <!-- End -->
+                <!-- list group item-->
+            </ul>
+            {% endfor %}
+        </div>
+    </div>
+
+{% if is_paginated %}
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li><a href="{% url 'show:home' %}?{% query_string request page_obj.previous_page_number %}">previous</a></li>
+        {% endif %}
+        {% for link_page in page_obj.paginator.page_range %}
+            {% if link_page == page_obj.number %}
+                <li class="active">{{ link_page }}</li>
+            {% else %}
+                <li><a href="{% url 'show:home' %}?{% query_string request link_page %}">{{ link_page }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li><a href="{% url 'show:home' %}?{% query_string request page_obj.next_page_number %}">next</a></li>
+        {% endif %}
+    </ul>
+{% endif %}
+
+<button type="button" name="new_post" onclick="location.href='{% url 'show:post_create' %}'">新規作成</button>
+{% endblock content %}
+
+<!--
+
+
+<table align="center" border="1">
+  {% for list in posts %}
+  <div class="containe">
+    <tr>
+      <td>{{list.cloth_name}}</td>
+      <td>
+        {% if list.datate_purchase %}
+        {{list.date_purchase}}
+        {% endif %}
+      </td>
+      <td>
+        {% if list.season %}
+        {{list.season}}
+        {% endif %}
+      </td>
+      <td>
+        {{list.part}}
+      </td>
+
+      <td>
+        <img src="{{MEDIA_URL}}{{list.image}}" style="width:300px;height:auto">
+      </td>
+    </tr>
+
+  </div>
+  {% endfor %}
+</table>
+<button type="button" name="new_post" onclick="location.href='{% url 'show:post_create' %}'">新規作成</button>
+
+-->
+
