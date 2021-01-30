@@ -1,7 +1,5 @@
 from django.db import models
-from imagekit.models import ImageSpecField
-from imagekit.processors import ResizeToFill
-from django.core.validators import FileExtensionValidator
+
 # Create your models here.
 
 SEASONS_CHOICES = (
