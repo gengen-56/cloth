@@ -34,7 +34,7 @@ class Post(models.Model):
     season = models.CharField(max_length=5, choices=SEASONS_CHOICES)
     part = models.ForeignKey(Parts, verbose_name="parts", on_delete=models.CASCADE)
     image = models.ImageField(upload_to='photos/',
-                              validators=[FileExtensionValidator(['jpg', 'png', 'HEIC'])],
+
                               height_field=None, width_field=None, max_length=None)
     """image = ImageSpecField(source="photos", processors=[ResizeToFill(500, 300)],
                            validators=[FileExtensionValidator(['jpg', 'png', 'HEIC'])],
