@@ -126,3 +126,5 @@ STATICFILES_DIRS = (
 
 MEDIA_ROOT = BASEPATH.joinpath('media')
 MEDIA_URL = '/media/'
+
+ALLOWED_HOSTS = ['34.83.133.198 ']
