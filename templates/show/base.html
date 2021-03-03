@@ -25,6 +25,25 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'show:post_create' %}" target="_self">New</a>
             </li>
+             <li class="nav-item active">
+                <a class="nav-link" href="{% url 'show:parts_create' %}" target="_self">Add Parts</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item active">
+                <a class="nav-link" href="">User Name : {{user.get_username}}</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'show:login' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'show:logout' %}">Login</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="">ユーザー登録</a>
+            </li>
+            {% endif %}
+           
             <!--<li class="nav-item">
                 <a class="nav-link disabled" href="#">Disabled</a>
             </li>

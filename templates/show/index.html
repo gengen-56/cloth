@@ -23,12 +23,28 @@
                 >{{ part.name }}
         {% endfor %}
     </div>
+
+    <div>
+        <span>季節：</span>
+        {% for i in seasons %}
+            <input type="checkbox" id="filter_season" 
+                name="season" 
+                value="{{ i }}"
+                {{ i |season_checked:request.GET}}
+                >{{i}}
+        {% endfor %}
+    </div>
+
     <div>
         <button id="filter">絞り込み</button>
     </div>
 </form>
 
-
+<div>
+    {% if posts %}
+        合計：{{posts.count}}
+    {% endif %}
+</div>
     <div class="row">
         <div class="col-lg-8 mx-auto">
             <!-- List group-->
@@ -40,14 +56,15 @@
                       <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                         <div class="media-body order-2 order-lg-1">
                             
-                            <p>名前：{{list.cloth_name}}</p>
+                            <p>ブランド名：{{list.cloth_name}}</p>
                             {% if list.date_purchase %}
                               <p>購入日：{{list.date_purchase}}</p>
                             {% endif %}
-                            {% if list.reason %}
-                              <p>季節：{{list.reason}}</p>
+                            {% if list.season %}
+                              <p>季節：{{list.season}}</p>
                             {% endif %}
                             <p>部位：{{list.part.name}}</p>
+                            <p>値段：{{list.price}}円</p>
                             <img src="{{MEDIA_URL}}{{list.image}}" style="width:300px;height:auto">
                             <p><a href="{% url 'show:delete' list.pk %}">削除</a></p>
                             

@@ -1,0 +1,17 @@
+{% extends 'show/base.html' %}
+{% block content %}
+<div class="ui grid stackable">
+    <div class="eleven wide column">
+        <div class="ui segment">
+            <div class="content">
+                <div class="header"><h3>ユーザー作成</h3></div>
+                <form class="ui form" action="" method="POST">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button class="ui orange button" name="next" value="confirm" type="submit">確認</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
