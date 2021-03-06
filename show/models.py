@@ -37,7 +37,7 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     date_created = models.DateTimeField(default=timezone.now)
     cloth_name = models.CharField(verbose_name='Brand Name', max_length=50)
-    date_purchase = models.DateField(verbose_name='購入日', null=True, blank=True)
+    date_purchase = models.DateField(verbose_name='購入日全', null=True, blank=True)
     season = models.CharField(verbose_name='季節', max_length=5, choices=SEASONS_CHOICES)
     part = models.ForeignKey(Parts, verbose_name="部位",
                              on_delete=models.CASCADE)
